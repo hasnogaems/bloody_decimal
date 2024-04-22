@@ -20,6 +20,9 @@
 #define OK 0
 #define SC 0x00ff0000
 #define GETSCALE(v) ((v.bits[3] & SC) >> 16)
+#define VAL1_GREATER_THAN_VAL2 1
+#define VAL2_GREATER_THAN_VAL1 2
+#define VALUES_IS_EQUAL 0
 
 typedef struct {
   unsigned int bits[4];

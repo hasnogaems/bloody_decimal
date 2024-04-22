@@ -97,22 +97,23 @@ s21_big_decimal big_division(s21_big_decimal *value_1,
                              s21_big_decimal value_2) {
   s21_big_decimal res = {{0, 0, 0, 0, 0, 0}};
   s21_big_decimal shifted_bit = {{1, 0, 0, 0, 0, 0}};
-  while (big_comparison(*value_1, value_2) == 1) {
-    s21_big_decimal del = value_2;
+  while (big_comparison(*value_1, value_2) == VAL1_GREATER_THAN_VAL2) { //если делимое больше делителя
+    s21_big_decimal del = value_2; //пишем в делитель делитель
     int i = 0;
-    if (big_comparison(del, *value_1) == 2 ||
-        big_comparison(del, *value_1) == 0) {
-      while (big_comparison(del, *value_1) == 2 ||
-             big_comparison(del, *value_1) == 0) {
-        del = big_shift_bits(del, -1);
+    if (big_comparison(del, *value_1) == VAL2_GREATER_THAN_VAL1 || //если делитель больше делимого
+        big_comparison(del, *value_1) == VALUES_IS_EQUAL) { //или если делитель равен делимому
+      while (big_comparison(del, *value_1) == VAL2_GREATER_THAN_VAL1 ||//пока тоже самое
+             big_comparison(del, *value_1) == VALUES_IS_EQUAL) {
+        del = big_shift_bits(del, -1); //сдвигаем делитель влево на 1, как это поможет сделать делимое больше, мы же хотим делимое больше
         ++i;
       }
-      del = big_shift_bits(del, 1);
+      del = big_shift_bits(del, 1); // и вправо на 1 и i вниз? Почему?
       i--;
     }
+    //В результ мы добавляем 1 со сдвигом влево на i
     myaddb(res, big_shift_bits(shifted_bit, -i), &res);
-    if (big_comparison(*value_1, del) == 1 ||
-        big_comparison(*value_1, del) == 0) {
+    if (big_comparison(*value_1, del) == VAL1_GREATER_THAN_VAL2 ||
+        big_comparison(*value_1, del) == VALUES_IS_EQUAL) {
       mysubb(*value_1, del, value_1);
     }
     del = big_shift_bits(del, -1);

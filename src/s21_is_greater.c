@@ -1,7 +1,7 @@
 #include "s21_decimal.h"
 
 int s21_is_greater(s21_decimal mem1, s21_decimal mem2) {  // ИСПРАВИТЬ В ЧЕТВЕРГ
-  int res = 0;
+int res = 0;
   s21_big_decimal big1, big2;
   nullifyb(&big1);
   nullifyb(&big2);
@@ -13,7 +13,7 @@ int s21_is_greater(s21_decimal mem1, s21_decimal mem2) {  // ИСПРАВИТЬ 
       for (int i = 191; i >= 0; i--) {
         if (getBigBit(big1, i) != getBigBit(big2, i)) {
           if (getBigBit(big1, i)) res = 1;
-          if (sign1) res = 0;
+          if (sign1) res = res^1u; // if compare negative numbers we revert result
           break;
         }
       }
@@ -24,7 +24,7 @@ int s21_is_greater(s21_decimal mem1, s21_decimal mem2) {  // ИСПРАВИТЬ 
       res = 1;
   }
 
-  return res;
+  return (int)res;
 }
 
 int s21_is_less(s21_decimal dec1, s21_decimal dec2) {

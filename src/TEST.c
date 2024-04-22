@@ -1590,13 +1590,13 @@ int main(void) {
                             s21_is_equal_suite(),
                             s21_is_less_or_equal_suite(),
                             s21_is_greater_or_equal_suite(),
-                            s21_is_not_equal_suite(),
+                            s21_is_not_equal_suite(), test_is_greater(), 
                             NULL};
   for (int i = 0; decimal_tests[i] != NULL; i++) {
     SRunner *srunner;
     srunner = srunner_create(decimal_tests[i]);
     srunner_set_fork_status(srunner, CK_NOFORK);
-    srunner_run_all(srunner, CK_NORMAL);
+    srunner_run_all(srunner, CK_VERBOSE);
     nf += srunner_ntests_failed(srunner);
     srunner_free(srunner);
   }
