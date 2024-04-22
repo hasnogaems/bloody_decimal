@@ -53,7 +53,7 @@ test : clean $(LIBRARY)
 # 	open ./report/index.html
 
 gcov_report:
-	gcc $(GCOVFLAGS) *_*.c TEST.c -o report.out $(TST_LIBS)
+	gcc $(GCOVFLAGS) *_*.c TEST.c tests/*.c -o report.out $(TST_LIBS)
 	./report.out
 	lcov -t "report" -o report.info -c -d .
 	genhtml -o ./report report.info
